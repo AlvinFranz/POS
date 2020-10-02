@@ -11,7 +11,6 @@ namespace POS.Class
         public string customer_name { get; set; }
 
         public string customer_address { get; set; }
-
         public int customer_contact { get; set; }
         public int customer_id { get; set; }
 

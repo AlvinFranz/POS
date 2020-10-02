@@ -170,7 +170,7 @@
                                                 HorizontalAlignment="Stretch" 
                                                 Background="Transparent" Height="37" FontSize="13" Click="update_customer">
                                         <StackPanel Orientation="Horizontal">
-                                            <materialDesign:PackIcon Kind="Pencil" Foreground="006fb9" Width="22" FontWeight="ExtraLight" Height="23" RenderTransformOrigin="-2.044,0.844" />
+                                            <materialDesign:PackIcon Kind="Pencil" Foreground="#006fb9" Width="22" FontWeight="ExtraLight" Height="23" RenderTransformOrigin="-2.044,0.844" />
                                             <!--<TextBlock Width="45" Height="19" FontSize="12" Foreground="ForestGreen" FontWeight="ExtraLight" ><Run Text=" Update"/></TextBlock>-->
                                         </StackPanel>
                                     </Button>
