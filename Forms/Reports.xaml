@@ -1,0 +1,244 @@
+﻿<UserControl x:Class="POS.Forms.Reports"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+             xmlns:local="clr-namespace:POS.Forms"
+             mc:Ignorable="d" 
+             MinHeight="660"
+             MinWidth="950"          
+             Background="white">
+
+    <UserControl.Resources>
+        <ResourceDictionary>
+            <Style TargetType="DataGridCell">
+                <Setter Property="TextBlock.TextAlignment" Value="Center" />
+                <Setter Property="Foreground" Value="black" />
+            </Style>
+            <Style x:Key="DataGridContentCellCentering" TargetType="{x:Type DataGridCell}">
+                <Setter Property="Template">
+                    <Setter.Value>
+                        <ControlTemplate TargetType="{x:Type DataGridCell}">
+                            <Grid Background="{TemplateBinding Background}">
+                                <ContentPresenter VerticalAlignment="Center" />
+                            </Grid>
+                        </ControlTemplate>
+                    </Setter.Value>
+                </Setter>
+            </Style>
+        </ResourceDictionary>
+    </UserControl.Resources>
+
+
+    <Grid HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="*" />
+        </Grid.ColumnDefinitions>
+
+        <Grid Grid.ColumnSpan="4" Name="header" Background="#525252" Grid.Row="0" VerticalAlignment="Top" HorizontalAlignment="Stretch" Height="50">
+            <TextBlock Margin="10,9,0,9" FontWeight="ExtraLight"
+                       FontSize="30" Foreground="White" FontFamily="Raleway" VerticalAlignment="Center" HorizontalAlignment="Left" Width="294"> Reports</TextBlock>
+        </Grid>
+
+        <Button Name="btn_save" Grid.Row="0" Grid.Column="0" BorderBrush="Transparent" BorderThickness="1" 
+                                    HorizontalAlignment="Left" Width="59"   Style="{StaticResource MaterialDesignRaisedAccentButton}"
+                                    materialDesign:RippleAssist.Feedback="#DD000000"
+                                    Background="#006fb9" Height="43" FontSize="13" Foreground="black" VerticalAlignment="Top" Margin="10,60,0,0" Click="btn_save_Click">
+
+            <materialDesign:PackIcon Kind="Sort" Foreground="white" Width="47" FontWeight="ExtraLight"  Height="26" HorizontalAlignment="Center" RenderTransformOrigin="-2.044,0.844" />
+        </Button>
+
+        <Label Name="lbl_header" FontSize="25" Margin="10,50,0,0" FontWeight="SemiBold" Grid.ColumnSpan="4" VerticalContentAlignment="Bottom" HorizontalAlignment="Center" Height="48" VerticalAlignment="Top">September 2020 Monthly Report</Label>
+
+        <!--<Calendar Name="dteSelectedMonth" DisplayMode="Year" SelectionMode="None" 
+          DisplayModeChanged="dteSelectedMonth_DisplayModeChanged" Margin="0,50,206.5,338" Grid.ColumnSpan="2" />-->
+
+        <GroupBox Grid.Row="0" Grid.ColumnSpan="4"         
+                  Style="{DynamicResource MaterialDesignCardGroupBox}"
+                  Margin="10,380,10,10"
+                  materialDesign:ColorZoneAssist.Mode="Custom"
+                  materialDesign:ColorZoneAssist.Background="#006fb9"
+                  materialDesign:ColorZoneAssist.Foreground="White">
+
+            <GroupBox.HeaderTemplate>
+                <DataTemplate>
+                    <StackPanel  Orientation="Horizontal">
+                        <materialDesign:PackIcon   Kind="BooksVariant"   Height="32" Width="32" VerticalAlignment="Center" />
+                        <TextBlock   Margin="8,0,0,0"  VerticalAlignment="Center" Style="{StaticResource MaterialDesignSubtitle1TextBlock}" Text="Monthy Data Records" FontWeight="SemiBold" FontSize="20"/>
+                    </StackPanel>
+                </DataTemplate>
+            </GroupBox.HeaderTemplate>
+            <Grid  HorizontalAlignment="Stretch" VerticalAlignment="Stretch"  >
+
+                <DataGrid x:Name="tbl_reports" ItemsSource="{Binding Path=LoadDataBinding}" IsReadOnly="True" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"  HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Auto"
+                      AutoGenerateColumns="False" xmlns:s="clr-namespace:System;assembly=mscorlib" 
+                      ColumnWidth="*" CanUserAddRows="false" Background="white" Foreground="black" RowHeight="60"
+                       HorizontalGridLinesBrush="DarkSlateGray"  GridLinesVisibility="Horizontal"    >
+                    <DataGrid.Resources>
+                        <Style BasedOn="{StaticResource {x:Type DataGridColumnHeader}}" TargetType="{x:Type DataGridColumnHeader}">
+                            <Setter Property="FontWeight" Value="Regular" />
+                            <Setter Property="Foreground" Value="DarkSlateGray" />
+                            <Setter Property="Background" Value="#f6ebcf" />
+                            <Setter Property="HorizontalContentAlignment" Value="Center" />
+                            <Setter Property="VerticalContentAlignment" Value="Center" />
+                        </Style>
+                        <s:String x:Key="format">{0:N}</s:String>
+                    </DataGrid.Resources>
+                    <DataGrid.Columns>
+                        <DataGridTextColumn Header="Transaction No." Binding="{Binding invoice_num}"  Width="*" />
+                        <DataGridTextColumn Header="Customer Name" Binding="{Binding customer_name}"  Width="*" />
+                        <DataGridTextColumn Header="Address" Binding="{Binding customer_address}"  Width="*" />
+                        <DataGridTextColumn Header="Contact" Binding="{Binding customer_contact}"  Width="*" />
+                        <DataGridTextColumn Header="Customer Type" Binding="{Binding customer_type}" Width="*" />
+                        <DataGridTextColumn Header="Date Purchased" Binding="{Binding date_purchased}" Width="*" />
+                        <DataGridTextColumn Header="Total" Binding="{Binding total, StringFormat=C}"  Width="*" />
+                        <DataGridTemplateColumn Width="150">
+                            <DataGridTemplateColumn.CellTemplate>
+                                <DataTemplate>
+                                    <Grid>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="*" />
+                                            <ColumnDefinition Width="*" />
+                                        </Grid.ColumnDefinitions>
+
+                                        <Button Grid.Column="0" ToolTip="View" 
+                                                VerticalAlignment="top"
+                                                BorderThickness="0"
+                                                HorizontalAlignment="Stretch" 
+                                                Width="100"
+                                                Background="Transparent" Height="37" FontSize="13" Click="btn_view">
+                                            <StackPanel Orientation="Horizontal">
+                                                <materialDesign:PackIcon Kind="Information" Foreground="#006fb9" HorizontalAlignment="Stretch" FontWeight="ExtraLight" Height="23" RenderTransformOrigin="-2.044,0.844" />
+                                                <!--<TextBlock HorizontalAlignment="Stretch" Height="19" FontSize="12" Foreground="ForestGreen" FontWeight="ExtraLight" ><Run Text="View"/></TextBlock>-->
+                                            </StackPanel>
+                                        </Button>
+
+                                    </Grid>
+                                </DataTemplate>
+                            </DataGridTemplateColumn.CellTemplate>
+                        </DataGridTemplateColumn>
+                    </DataGrid.Columns>
+                </DataGrid>
+
+            </Grid>
+        </GroupBox>
+
+        <Grid Grid.Column="1" HorizontalAlignment="Stretch"   Height="112" VerticalAlignment="Top" Margin="10,118,10,0">
+            <Border BorderThickness="1 1 1 0" BorderBrush="Black" Opacity="0.2"/>
+            <Border BorderThickness="0 0 0 1" BorderBrush="LightGray" Opacity="1">
+                <Border.Effect>
+                    <DropShadowEffect BlurRadius="5" Direction="-90" RenderingBias="Quality" ShadowDepth="1"/>
+                </Border.Effect>
+            </Border>
+
+            <Label Margin="10,0,0,0" FontSize="20" Foreground="Black" HorizontalAlignment="Left" Width="209" Height="36" VerticalAlignment="Top">Capital</Label>
+            <Label Name="lbl_capital"  Margin="23,36,0,0" FontSize="20"  FontWeight="Bold"  Foreground="SeaGreen" HorizontalAlignment="Left" Width="196" Height="36" VerticalAlignment="Top">256</Label>
+            <Label Name="lbl_capital_percent"  Margin="23,66,0,0" FontSize="20"  FontWeight="ExtraLight"  Foreground="SeaGreen" HorizontalAlignment="Stretch" Height="36" VerticalAlignment="Top"  >+26 (+10.2%)</Label>
+        </Grid>
+
+        <Grid HorizontalAlignment="Stretch"   Height="112" VerticalAlignment="Top" Margin="10,118,10,0">
+            <Border BorderThickness="1 1 1 0" BorderBrush="Black" Opacity="0.2"/>
+            <Border BorderThickness="0 0 0 1" BorderBrush="LightGray" Opacity="1">
+                <Border.Effect>
+                    <DropShadowEffect BlurRadius="5" Direction="-90" RenderingBias="Quality" ShadowDepth="1"/>
+                </Border.Effect>
+            </Border>
+
+            <Label Margin="10,0,0,0" FontSize="20" Foreground="Black" HorizontalAlignment="Left" Width="209" Height="36" VerticalAlignment="Top">Total Products Sold</Label>
+            <Label Name="lbl_sold_products"  Margin="23,36,0,0" FontSize="20"  FontWeight="Bold"  Foreground="SeaGreen" HorizontalAlignment="Left" Width="196" Height="36" VerticalAlignment="Top">256</Label>
+            <Label Name="lbl_sold_products_percent"  Margin="23,66,0,0" FontSize="20"  FontWeight="ExtraLight"  Foreground="SeaGreen" HorizontalAlignment="Stretch" Height="36" VerticalAlignment="Top"  >+26 (+10.2%)</Label>
+
+        </Grid>
+
+        <Grid HorizontalAlignment="Stretch"   Height="112" VerticalAlignment="Top" Margin="10,246,10,0">
+            <Border BorderThickness="1 1 1 0" BorderBrush="Black" Opacity="0.2"/>
+            <Border BorderThickness="0 0 0 1" BorderBrush="LightGray" Opacity="1">
+                <Border.Effect>
+                    <DropShadowEffect BlurRadius="5" Direction="-90" RenderingBias="Quality" ShadowDepth="1"/>
+                </Border.Effect>
+            </Border>
+
+            <Label Margin="10,0,0,0" FontSize="20" Foreground="Black" HorizontalAlignment="Left" Width="209" Height="36" VerticalAlignment="Top">Most Sold Product</Label>
+            <Label Name="lbl_trending_product"  Margin="23,36,0,0" FontSize="20"  FontWeight="Bold"  Foreground="SeaGreen" HorizontalAlignment="Left" Width="196" Height="36" VerticalAlignment="Top">256</Label>
+            <Label Name="lbl_trending_product_percent"  Margin="23,66,0,0" FontSize="20"  FontWeight="ExtraLight"  Foreground="SeaGreen" HorizontalAlignment="Stretch" Height="36" VerticalAlignment="Top"  >+26 (+10.2%)</Label>
+
+
+        </Grid>
+
+        <Grid Grid.Column="1" HorizontalAlignment="Stretch"   Height="112" VerticalAlignment="Top" Margin="10,246,10,0">
+            <Border BorderThickness="1 1 1 0" BorderBrush="Black" Opacity="0.2"/>
+            <Border BorderThickness="0 0 0 1" BorderBrush="LightGray" Opacity="1">
+                <Border.Effect>
+                    <DropShadowEffect BlurRadius="5" Direction="-90" RenderingBias="Quality" ShadowDepth="1"/>
+                </Border.Effect>
+            </Border>
+
+            <Label Margin="10,0,0,0" FontSize="20" Foreground="Black" HorizontalAlignment="Left" Width="209" Height="36" VerticalAlignment="Top">Number of Sales</Label>
+            <Label Name="lbl_sales"  Margin="23,36,0,0" FontSize="20"  FontWeight="Bold"  Foreground="SeaGreen" HorizontalAlignment="Left" Width="196" Height="36" VerticalAlignment="Top">256</Label>
+            <Label Name="lbl_sales_percent"  Margin="23,66,0,0" FontSize="20"  FontWeight="ExtraLight"  Foreground="SeaGreen" HorizontalAlignment="Stretch" Height="36" VerticalAlignment="Top"  >+26 (+10.2%)</Label>
+        </Grid>
+
+        <Grid HorizontalAlignment="Stretch"  Height="112"  VerticalAlignment="Top" Margin="5,118,0,0" Grid.Column="2" >
+            <Border BorderThickness="1 1 1 0" BorderBrush="Black" Opacity="0.2" Margin="10,0"/>
+            <Border BorderThickness="0 0 0 1" BorderBrush="LightGray" Opacity="1" Margin="10,0">
+                <Border.Effect>
+                    <DropShadowEffect BlurRadius="5" Direction="-90" RenderingBias="Quality" ShadowDepth="1"/>
+                </Border.Effect>
+            </Border>
+            <Label Margin="23,0,0,0" FontSize="20"  Foreground="Black" HorizontalAlignment="Left" Width="191" Height="36" VerticalAlignment="Top">Gross</Label>
+            <Label Name="lbl_gross" Margin="23,36,0,0" FontSize="20" FontWeight="Bold" Foreground="SeaGreen" HorizontalAlignment="Left" Width="191" Height="36" VerticalAlignment="Top">P256,231.00</Label>
+            <Label Name="lbl_gross_percent" Margin="23,66,10,0" FontSize="20"  FontWeight="ExtraLight"  Foreground="SeaGreen" HorizontalAlignment="Stretch" Height="36" VerticalAlignment="Top" >+25,623.10 (+10%)</Label>
+        </Grid>
+
+
+        <Grid Grid.Column="3" HorizontalAlignment="Stretch" Height="112"  VerticalAlignment="Top" Margin="10,118,0,0">
+            <Border BorderThickness="1 1 1 0" BorderBrush="Black" Opacity="0.2" Margin="0,0,10,0"/>
+            <Border BorderThickness="0 0 0 1" BorderBrush="LightGray" Opacity="1" Margin="0,0,10,0">
+                <Border.Effect>
+                    <DropShadowEffect BlurRadius="5" Direction="-90" RenderingBias="Quality" ShadowDepth="1"/>
+                </Border.Effect>
+            </Border>
+            <Label Margin="20,0,0,0" FontSize="20"  Foreground="Black" HorizontalAlignment="Left" Width="213" Height="36" VerticalAlignment="Top">Profit</Label>
+            <Label Name="lbl_profit" Margin="23,36,0,0" FontSize="20"  FontWeight="Bold" Foreground="SeaGreen" HorizontalAlignment="Left" Width="196" Height="36" VerticalAlignment="Top">P40,201.25</Label>
+            <Label Name="lbl_profit_percent" Margin="23,66,0,0" FontSize="20"  FontWeight="ExtraLight"  Foreground="SeaGreen" HorizontalAlignment="Stretch" Height="36" VerticalAlignment="Top" >+4,020.12 (+10%)</Label>
+        </Grid>
+
+
+
+        <Grid Grid.Column="2" HorizontalAlignment="Stretch"   Height="112" VerticalAlignment="Top" Margin="0,246,10,0">
+            <Border BorderThickness="1 1 1 0" BorderBrush="Black" Opacity="0.2" Margin="10,0,0,0"/>
+            <Border BorderThickness="0 0 0 1" BorderBrush="LightGray" Opacity="1" Margin="10,0,0,0">
+                <Border.Effect>
+                    <DropShadowEffect BlurRadius="5" Direction="-90" RenderingBias="Quality" ShadowDepth="1"/>
+                </Border.Effect>
+            </Border>
+
+            <Label Margin="23,0,0,0" FontSize="20" Foreground="Black" HorizontalAlignment="Left" Width="196" Height="36" VerticalAlignment="Top">Retailers</Label>
+            <Label Name="lbl_retailers"  Margin="23,36,0,0" FontSize="20"  FontWeight="Bold"  Foreground="SeaGreen" HorizontalAlignment="Left" Width="196" Height="36" VerticalAlignment="Top">256</Label>
+            <Label Name="lbl_retailers_percent"  Margin="23,66,0,0" FontSize="20"  FontWeight="ExtraLight"  Foreground="SeaGreen" HorizontalAlignment="Stretch" Height="36" VerticalAlignment="Top"  >+26 (+10.2%)</Label>
+        </Grid>
+
+
+        <Grid HorizontalAlignment="Stretch"  Height="112"  VerticalAlignment="Top" Margin="10,246,10,0" Grid.Column="3" >
+            <Border BorderThickness="1 1 1 0" BorderBrush="Black" Opacity="0.2"/>
+            <Border BorderThickness="0 0 0 1" BorderBrush="LightGray" Opacity="1">
+                <Border.Effect>
+                    <DropShadowEffect BlurRadius="5" Direction="-90" RenderingBias="Quality" ShadowDepth="1"/>
+                </Border.Effect>
+            </Border>
+            <Label Margin="23,0,0,0" FontSize="20"  Foreground="Black" HorizontalAlignment="Left" Width="210" Height="36" VerticalAlignment="Top">Resellers</Label>
+            <Label Name="lbl_resellers" Margin="23,36,0,0" FontSize="20" FontWeight="Bold" Foreground="SeaGreen" HorizontalAlignment="Left" Width="196" Height="36" VerticalAlignment="Top">P256,231.00</Label>
+            <Label Name="lbl_resellers_percent" Margin="23,66,10,0" FontSize="20"  FontWeight="ExtraLight"  Foreground="SeaGreen" HorizontalAlignment="Stretch" Height="36" VerticalAlignment="Top" >+25,623.10 (+10%)</Label>
+        </Grid>
+
+
+
+    </Grid>
+</UserControl>

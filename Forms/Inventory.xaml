@@ -1,0 +1,201 @@
+﻿            <UserControl x:Class="POS.Forms.Inventory"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:POS.Forms"
+             mc:Ignorable="d" 
+             MinHeight="660"
+             MinWidth="950"          
+             Background="white">
+
+    <UserControl.Resources>
+        <ResourceDictionary>
+            <Style TargetType="DataGridCell">
+                <Setter Property="TextBlock.TextAlignment" Value="Center" />
+                <Setter Property="Foreground" Value="black" />
+            </Style>
+            <Style x:Key="DataGridContentCellCentering" TargetType="{x:Type DataGridCell}">
+                <Setter Property="Template">
+                    <Setter.Value>
+                        <ControlTemplate TargetType="{x:Type DataGridCell}">
+                            <Grid Background="{TemplateBinding Background}">
+                                <ContentPresenter VerticalAlignment="Center" />
+                            </Grid>
+                        </ControlTemplate>
+                    </Setter.Value>
+                </Setter>
+            </Style>
+        </ResourceDictionary>
+    </UserControl.Resources>
+
+
+    <Grid  HorizontalAlignment="Stretch" VerticalAlignment="Stretch" >
+        <Grid.RowDefinitions>
+            <RowDefinition Height="50"/>
+            <RowDefinition Height="60"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <Grid Name="header" Background="#525252" Grid.Row="0" VerticalAlignment="Top" HorizontalAlignment="Stretch" Height="50">
+            <TextBlock Margin="10,9,0,9" FontWeight="ExtraLight"
+                       FontSize="30" Foreground="White" FontFamily="Raleway" VerticalAlignment="Center" HorizontalAlignment="Left" Width="294"> Products</TextBlock>
+        </Grid>
+
+
+        <Button Grid.Row="1" ToolTip="Register New Product" BorderBrush="Transparent" BorderThickness="1" 
+                        HorizontalAlignment="Left" VerticalAlignment="Bottom" Width="100"   Style="{StaticResource MaterialDesignRaisedAccentButton}"
+                        materialDesign:RippleAssist.Feedback="#DD000000"
+                        Background="#006fb9" Height="50" FontSize="13" Foreground="black" Margin="10,0,0,0" Click="Button_Click">
+
+            <StackPanel Orientation="Vertical">
+                <materialDesign:PackIcon Kind="HammerScrewdriver" Foreground="white" Width="19" FontWeight="ExtraLight" Height="23" HorizontalAlignment="Center" RenderTransformOrigin="-2.044,0.844" />
+                <TextBlock Width="77" Height="19" FontSize="10"  Foreground="white" FontWeight="ExtraLight" TextAlignment="Center"  HorizontalAlignment="Center"><Run Text=" Add Product"/></TextBlock>
+            </StackPanel>
+        </Button>
+
+        <Button Grid.Row="1" ToolTip="Create Inventory Report" BorderBrush="Transparent" BorderThickness="1" 
+                        HorizontalAlignment="Left" VerticalAlignment="Bottom" Width="100"   Style="{StaticResource MaterialDesignRaisedAccentButton}"
+                        materialDesign:RippleAssist.Feedback="#DD000000"
+                        Background="#006fb9" Height="50" FontSize="13" Foreground="black" Margin="115,0,0,0" Click="Button_Click_1">
+
+            <StackPanel Orientation="Vertical">
+                <materialDesign:PackIcon Kind="Category" Foreground="white" Width="18" FontWeight="ExtraLight" Height="23" HorizontalAlignment="Center" RenderTransformOrigin="-2.044,0.844" />
+                <TextBlock Width="78" Height="19" FontSize="10"  Foreground="white" FontWeight="ExtraLight" TextAlignment="Center"  HorizontalAlignment="Center"><Run Text=" Categories"/></TextBlock>
+            </StackPanel>
+        </Button>
+
+        <Button Grid.Row="1" ToolTip="Create Inventory Report" BorderBrush="Transparent" BorderThickness="1" 
+                        HorizontalAlignment="Left" VerticalAlignment="Bottom" Width="100"   Style="{StaticResource MaterialDesignRaisedAccentButton}"
+                        materialDesign:RippleAssist.Feedback="#DD000000"
+                        Background="#006fb9" Height="50" FontSize="13" Foreground="black" Margin="220,0,0,0" Click="Button_Click_2">
+
+            <StackPanel Orientation="Vertical">
+                <materialDesign:PackIcon Kind="TruckDelivery" Foreground="white" Width="18" FontWeight="ExtraLight" Height="23" HorizontalAlignment="Center" RenderTransformOrigin="-2.044,0.844" />
+                <TextBlock Width="78" Height="19" FontSize="10"  Foreground="white" FontWeight="ExtraLight" TextAlignment="Center"  HorizontalAlignment="Center"><Run Text=" Supplier"/></TextBlock>
+            </StackPanel>
+        </Button>
+
+        <Button Grid.Row="1" ToolTip="Create Inventory Report" BorderBrush="Transparent" BorderThickness="1" 
+                        HorizontalAlignment="Left" VerticalAlignment="Bottom" Width="100"   Style="{StaticResource MaterialDesignRaisedAccentButton}"
+                        materialDesign:RippleAssist.Feedback="#DD000000"
+                        Background="#006fb9" Height="50" FontSize="13" Foreground="black" Margin="325,0,0,0">
+
+            <StackPanel Orientation="Vertical">
+                <materialDesign:PackIcon Kind="Clipboard" Foreground="white" Width="18" FontWeight="ExtraLight" Height="23" HorizontalAlignment="Center" RenderTransformOrigin="-2.044,0.844" />
+                <TextBlock Width="78" Height="19" FontSize="10"  Foreground="white" FontWeight="ExtraLight" TextAlignment="Center"  HorizontalAlignment="Center"><Run Text=" Spreadsheet"/></TextBlock>
+            </StackPanel>
+        </Button>
+
+        <Border
+            Cursor="Hand"
+            Grid.Row="1"
+            BorderBrush="DarkSlateGray"
+            BorderThickness="1"
+            HorizontalAlignment="Right"
+            VerticalAlignment="Center"
+            CornerRadius="5" Margin="0,15,10,0" Height="45" >
+            <StackPanel Orientation="Horizontal"  >
+                <materialDesign:PackIcon Kind="Magnify" Foreground="#006fb9"  HorizontalAlignment="Left" Width="43" FontWeight="ExtraLight" Height="43" RenderTransformOrigin="-2.044,0.844" />
+                <TextBox   
+                    x:Name="search" FontSize="22"   
+                    materialDesign:TextFieldAssist.UnderlineBrush="Transparent"
+                    ToolTip ="Search for an item"                                   
+                    BorderThickness="0"
+                    Background="white"
+                    Width="250"                       
+                    HorizontalContentAlignment="left"
+                    VerticalContentAlignment="Bottom" Margin="0,0,10,3" Height="40" VerticalAlignment="Bottom" TextChanged="search_TextChanged"   />
+            </StackPanel>
+
+        </Border>
+
+
+        <DataGrid  x:Name="tbl_inventory" ItemsSource="{Binding Path=LoadDataBinding}" IsReadOnly="True" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"  HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Auto"
+                      AutoGenerateColumns="False" xmlns:s="clr-namespace:System;assembly=mscorlib" 
+                      ColumnWidth="*" CanUserAddRows="false" Background="white" Foreground="black" RowHeight="60"
+                       HorizontalGridLinesBrush="DarkSlateGray"  GridLinesVisibility="Horizontal" Grid.Row="2" Margin="10"    >
+            <DataGrid.Resources>
+                <Style BasedOn="{StaticResource {x:Type DataGridColumnHeader}}" TargetType="{x:Type DataGridColumnHeader}">
+                    <Setter Property="FontWeight" Value="Regular" />
+                    <Setter Property="Foreground" Value="DarkSlateGray" />
+                    <Setter Property="Background" Value="#f6ebcf" />
+                    <Setter Property="HorizontalContentAlignment" Value="Center" />
+                    <Setter Property="VerticalContentAlignment" Value="Center" />
+                </Style>
+                <s:String x:Key="format">{0:N}</s:String>
+            </DataGrid.Resources>
+            <DataGrid.Columns>
+                <DataGridTemplateColumn  Header="Image" Width="*" RenderOptions.BitmapScalingMode="NearestNeighbor" >
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <Image Source="{Binding image}" MaxWidth="100" Stretch="Fill" />
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+                <DataGridTextColumn Header="Description" Binding="{Binding name}"  Width="*" />
+                <DataGridTextColumn Header="Category" Binding="{Binding category}"  Width="*" />
+                <DataGridTextColumn Header="Product Code" Binding="{Binding id}" Width="*" />
+                <DataGridTextColumn Header="Supplier" Binding="{Binding supplier}" Width="*" />
+                <DataGridTextColumn Header="Price" Binding="{Binding price, StringFormat=C}"  Width="*" />
+                <DataGridTextColumn Header="Capital" Binding="{Binding capital}"  Width="*" />
+                <DataGridTextColumn Header="Quantity" Binding="{Binding quantity}"  Width="*" />
+                <DataGridTemplateColumn Header="Action" Width="250">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*" />
+                                    <ColumnDefinition Width="*" />
+                                    <ColumnDefinition Width="*" />
+                                </Grid.ColumnDefinitions>
+
+                                <Button Grid.Column="0" ToolTip="Product Details" Width="100"
+                                                VerticalAlignment="top"
+                                                BorderThickness="0"
+                                                HorizontalAlignment="Center" 
+                                                Background="Transparent" Height="37" FontSize="13" Click="open_product_detail"  >
+                                    <StackPanel Orientation="Horizontal">
+                                        <materialDesign:PackIcon Kind="Notebook" Foreground="#006fb9" Width="22" FontWeight="ExtraLight" Height="23" RenderTransformOrigin="-2.044,0.844" />
+                                        <!--<TextBlock Width="45" Height="19" FontSize="12" Foreground="Brown" FontWeight="ExtraLight" ><Run Text="Details"/></TextBlock>-->
+                                    </StackPanel>
+                                </Button>
+
+
+                                <Button Grid.Column="1" ToolTip="Edit" Width="100"
+                                                VerticalAlignment="top"
+                                                BorderThickness="0"
+                                                HorizontalAlignment="Center" 
+                                                Background="Transparent" Height="37" FontSize="13" Click="update_product" >
+                                    <StackPanel Orientation="Horizontal" >
+                                        <materialDesign:PackIcon Kind="Pencil" Foreground="#006fb9" Width="22" FontWeight="ExtraLight" Height="23" RenderTransformOrigin="-2.044,0.844" />
+                                        <!--<TextBlock Width="45" Height="19" FontSize="12" Foreground="ForestGreen" FontWeight="ExtraLight" ><Run Text=" Update"/></TextBlock>-->
+                                    </StackPanel>
+                                </Button>
+
+
+                                <Button Grid.Column="2" ToolTip="Delete" Width="100"
+                                                VerticalAlignment="top"
+                                                BorderThickness="0"
+                                                HorizontalAlignment="Center"
+                                                Background="Transparent" Height="37" FontSize="13"  Click="delete_product" >
+                                    <StackPanel Orientation="Horizontal">
+                                        <materialDesign:PackIcon Kind="TrashCan" Foreground="#006fb9" Width="22" FontWeight="ExtraLight" Height="23" RenderTransformOrigin="-2.044,0.844" />
+                                        <!--<TextBlock Width="45" Height="19" FontSize="12" Foreground="red" FontWeight="ExtraLight" ><Run Text=" Delete"/></TextBlock>-->
+                                    </StackPanel>
+                                </Button>
+                            </Grid>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+            </DataGrid.Columns>
+        </DataGrid>
+
+
+
+
+
+
+    </Grid>
+</UserControl>

@@ -1,0 +1,157 @@
+﻿<Window x:Class="POS.popup.product_detail"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+        xmlns:local="clr-namespace:POS.popup"
+        mc:Ignorable="d"
+        WindowStartupLocation="CenterScreen"
+        WindowStyle="None"
+        ResizeMode="NoResize"
+        Height="700.5"
+        Width="995.5"
+        Background="WhiteSmoke">
+
+    <Window.Resources>
+        <ResourceDictionary>
+            <Style TargetType="DataGridCell">
+                <Setter Property="TextBlock.TextAlignment" Value="Center" />
+                <Setter Property="Foreground" Value="black" />
+            </Style>
+            <Style x:Key="DataGridContentCellCentering" TargetType="{x:Type DataGridCell}">
+                <Setter Property="Template">
+                    <Setter.Value>
+                        <ControlTemplate TargetType="{x:Type DataGridCell}">
+                            <Grid Background="{TemplateBinding Background}">
+                                <ContentPresenter VerticalAlignment="Center" />
+                            </Grid>
+                        </ControlTemplate>
+                    </Setter.Value>
+                </Setter>
+            </Style>
+        </ResourceDictionary>
+    </Window.Resources>
+
+    <Window.Triggers>
+        <EventTrigger RoutedEvent="Loaded">
+            <BeginStoryboard>
+                <Storyboard>
+                    <DoubleAnimation
+              Storyboard.TargetProperty="Opacity"
+               From="0.0" To="1.0" Duration="0:0:1"/>
+                </Storyboard>
+            </BeginStoryboard>
+        </EventTrigger>
+    </Window.Triggers>
+    <Grid>
+        <!--<Grid.Effect>
+            <DropShadowEffect BlurRadius="5" Direction="-90" RenderingBias="Quality" ShadowDepth="1"/>
+        </Grid.Effect>-->
+        <Border BorderThickness="1" BorderBrush="Black" Opacity="0.7"></Border>
+
+        <Grid Name="header" Background="#525252" Grid.Row="0" VerticalAlignment="Top" HorizontalAlignment="Stretch" Height="54">
+            <TextBlock Margin="10,9,0,9" FontWeight="Bold" FontSize="30" Foreground="White" FontFamily="Raleway" VerticalAlignment="Center" HorizontalAlignment="Left" Width="294">Product Detail</TextBlock>
+            <Button Name="exit" Grid.Column="0" BorderThickness="1" BorderBrush="Transparent" Background="Transparent"  ToolTip="Exit" VerticalAlignment="Stretch" HorizontalAlignment="Right" Height="Auto" Margin="0,6,10,14" Click="exit_Click" Width="56">
+                <materialDesign:PackIcon Foreground="White" Kind="Close" VerticalAlignment="Stretch" HorizontalAlignment="Stretch"/>
+            </Button>
+            <Button Name="M" Grid.Column="0" BorderThickness="1" BorderBrush="Transparent" Background="Transparent"  ToolTip="Exit" VerticalAlignment="Stretch" HorizontalAlignment="Right" Height="Auto" Margin="0,6,10,14" Click="exit_Click" Width="56">
+                <materialDesign:PackIcon Foreground="White" Kind="Close" VerticalAlignment="Stretch" HorizontalAlignment="Stretch"/>
+            </Button>
+            <Button Name="maximize" Grid.Column="0" BorderThickness="1" BorderBrush="Transparent" Background="Transparent"  ToolTip="Maximize" VerticalAlignment="Stretch" HorizontalAlignment="Right" Height="Auto" Margin="0,6,63,14" Click="maximize_Click" Width="56">
+                <materialDesign:PackIcon Foreground="White" Kind="WindowMaximize" VerticalAlignment="Stretch" HorizontalAlignment="Stretch"/>
+            </Button>
+
+        </Grid>
+
+        <Border BorderBrush="Black" BorderThickness="1" Margin="10,72,0,0" HorizontalAlignment="Left" Width="180" Height="156" VerticalAlignment="Top">
+            <Image Name="prod_image" Margin="0,0,-1,-1"/>
+        </Border>
+
+        <Label Margin="195,162,0,0" HorizontalAlignment="Left" Width="115" Height="33" FontSize="17" VerticalAlignment="Top">Product Code</Label>
+        <Label Name="lbl_code" HorizontalContentAlignment="Left" Margin="315,162,0,0" HorizontalAlignment="Left" Width="213" Height="33" FontSize="17" VerticalAlignment="Top">A123bc23</Label>
+
+        <Label Margin="195,200,0,0" HorizontalAlignment="Left" Width="115" Height="34" FontSize="17" VerticalAlignment="Top">Description</Label>
+        <Label Name="lbl_description" HorizontalContentAlignment="Left" Margin="315,200,0,0" HorizontalAlignment="Left" Width="360" Height="33" FontSize="17" VerticalAlignment="Top">Dell Computer</Label>
+
+        <Border BorderBrush="Black" BorderThickness="1" Opacity="0.4" Margin="10,460,10,10" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"></Border>
+
+
+        <Grid Margin="10,239,10,10" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+
+            <GroupBox Grid.Column="0"  
+                  Style="{DynamicResource MaterialDesignCardGroupBox}"
+                  materialDesign:ColorZoneAssist.Mode="Custom"
+                  materialDesign:ColorZoneAssist.Background="#006fb9"
+                  materialDesign:ColorZoneAssist.Foreground="White" Height="280" VerticalAlignment="Top">
+                <GroupBox.HeaderTemplate>
+                    <DataTemplate>
+                        <StackPanel  Orientation="Horizontal">
+                            <materialDesign:PackIcon   Kind="NotebookMultiple"   Height="32" Width="32" VerticalAlignment="Center" />
+                            <TextBlock   Margin="8,0,0,0"  VerticalAlignment="Center" Style="{StaticResource MaterialDesignSubtitle1TextBlock}" Text="Product Summary" />
+                        </StackPanel>
+                    </DataTemplate>
+                </GroupBox.HeaderTemplate>
+
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+                    <!--<Label Grid.Column="0"  HorizontalAlignment="Left" Width="81" Height="30" FontSize="12" VerticalAlignment="Top" FontWeight="Normal" >Active Price</Label>
+                    <Label Grid.Column="0"  HorizontalAlignment="Left" Width="108" FontSize="12" FontWeight="Normal" Margin="0,84,0,0" Height="30" VerticalAlignment="Top">Date Registered</Label>
+                    <Label Grid.Column="0"  HorizontalAlignment="Left" Width="152" Height="30" FontSize="12" VerticalAlignment="Top" FontWeight="Normal" Margin="0,155,0,0">Most Recent Purchase</Label>
+
+                    <Label Grid.Column="1"   HorizontalAlignment="Left" Width="138" Height="30" FontSize="12" VerticalAlignment="Top" FontWeight="Normal" Margin="10,0,0,0">No. Items Sold</Label>
+                    <Label Grid.Column="1"  HorizontalAlignment="Left" Width="138" Height="30" FontSize="12" VerticalAlignment="Top" FontWeight="Normal" Margin="10,84,0,0" >Capital Amount</Label>
+                    <Label Grid.Column="1"  HorizontalAlignment="Left" Width="138" Height="30" FontSize="12" VerticalAlignment="Top" FontWeight="Normal" Margin="10,155,0,0">Most Sales (Day)</Label>
+
+                    <Label Grid.Column="2"  HorizontalAlignment="Left" Width="138" Height="30" FontSize="12" VerticalAlignment="Top" FontWeight="Normal" Margin="10,0,0,0" >No. Items Sold</Label>
+                    <Label Grid.Column="2"   HorizontalAlignment="Left" Width="138" Height="30" FontSize="12" VerticalAlignment="Top" FontWeight="Normal" Margin="10,84,0,0" >Capital Amount</Label>
+                    <Label Grid.Column="2"   HorizontalAlignment="Left" Width="138" Height="30" FontSize="12" VerticalAlignment="Top" FontWeight="Normal" Margin="10,155,0,0" >Most Sales (Day)</Label>-->
+                    <TextBox Name="txt_price" Grid.Column="0" materialDesign:HintAssist.Hint="Active Price" Style="{StaticResource MaterialDesignFloatingHintTextBox}" Focusable="true" BorderThickness="0" VerticalContentAlignment="top"  VerticalAlignment="Top" Margin="10,4,0,0"  FontSize="18" HorizontalAlignment="Left" Width="255" Height="66"/>
+                    <TextBox Name="txt_stocks" Grid.Column="0" materialDesign:HintAssist.Hint="Stocks on-hand" Style="{StaticResource MaterialDesignFloatingHintTextBox}" Focusable="true" BorderThickness="0" VerticalContentAlignment="top"  VerticalAlignment="Top" Margin="10,75,0,0"  FontSize="18" HorizontalAlignment="Left" Width="255" Height="66" />
+                    <TextBox Name="txt_registered" Grid.Column="0" materialDesign:HintAssist.Hint="Date Registered" Style="{StaticResource MaterialDesignFloatingHintTextBox}" Focusable="true" BorderThickness="0" VerticalContentAlignment="top"  VerticalAlignment="Top" Margin="10,146,0,0"  FontSize="18" HorizontalAlignment="Left" Width="255" Height="66" />
+
+                    <TextBox Name="txt_qty_sold" Grid.Column="1" materialDesign:HintAssist.Hint="No. Items Sold" Style="{StaticResource MaterialDesignFloatingHintTextBox}" Focusable="true" BorderThickness="0" VerticalContentAlignment="top"  VerticalAlignment="Top" Margin="28,4,0,0"  FontSize="18" HorizontalAlignment="Left" Width="282" Height="66"/>
+                    <TextBox Name="txt_capital" Grid.Column="1" materialDesign:HintAssist.Hint="Total Capital Amount" Style="{StaticResource MaterialDesignFloatingHintTextBox}" Focusable="true" BorderThickness="0" VerticalContentAlignment="top"  VerticalAlignment="Top" Margin="28,75,0,0"  FontSize="18" HorizontalAlignment="Left" Width="282" Height="66" />
+                    <TextBox Name="txt_recent_purchase" Grid.Column="1" materialDesign:HintAssist.Hint="Most Recent Purchase" Style="{StaticResource MaterialDesignFloatingHintTextBox}" Focusable="true" BorderThickness="0" VerticalContentAlignment="top"  VerticalAlignment="Top" Margin="28,146,0,0"  FontSize="18" HorizontalAlignment="Left" Width="255" Height="66" RenderTransformOrigin="1.737,0.682" />
+
+
+                    <TextBox Name="txt_gross" Grid.Column="2" materialDesign:HintAssist.Hint="Total Gross" Style="{StaticResource MaterialDesignFloatingHintTextBox}" Focusable="true" BorderThickness="0" VerticalContentAlignment="top"  VerticalAlignment="Top" Margin="43,4,0,0"  FontSize="18" HorizontalAlignment="Left" Width="266" Height="66"/>
+                    <TextBox Name="txt_revenue" Grid.Column="2" materialDesign:HintAssist.Hint="Revenue" Style="{StaticResource MaterialDesignFloatingHintTextBox}" Focusable="true" BorderThickness="0" VerticalContentAlignment="top"  VerticalAlignment="Top" Margin="43,75,0,0"  FontSize="18" HorizontalAlignment="Left" Width="266" Height="66" />
+                    <TextBox Name="txt_most_sales" Grid.Column="2" materialDesign:HintAssist.Hint="Most Sales (Day)" Style="{StaticResource MaterialDesignFloatingHintTextBox}" Focusable="true" BorderThickness="0" VerticalContentAlignment="top"  VerticalAlignment="Top" Margin="43,141,0,0"  FontSize="18" HorizontalAlignment="Left" Width="266" Height="66" />
+
+
+
+                </Grid>
+
+            </GroupBox>
+
+            <Label Margin="7,285,0,0" HorizontalAlignment="Left" Width="67" Height="35" FontSize="20" VerticalAlignment="Top" FontWeight="SemiBold">Notes</Label>
+            <TextBox 
+                Name="txt_notes"
+                MaxLength="255"
+                TextWrapping="Wrap"
+                MinWidth="280"
+                AcceptsReturn="True"
+                VerticalScrollBarVisibility="Auto"           
+                materialDesign:HintAssist.Hint="Enter Notes Here ..."
+                Margin="10,320,10,51">
+                Multiline. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. The quick brown fox jumps over the lazy dog. War and peace. Keep going. Go on. For how long? Not long. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+            </TextBox>
+
+            <Button Name="btn_save" Grid.Row="0"  BorderBrush="Transparent" BorderThickness="1" 
+                                    HorizontalAlignment="Right" VerticalAlignment="Bottom" Width="97"   Style="{StaticResource MaterialDesignRaisedAccentButton}"
+                                    materialDesign:RippleAssist.Feedback="#DD000000"
+                                    Background="#006fb9" Height="39" FontSize="13" Foreground="black" Margin="0,0,10,7" Click="btn_save_Click">
+
+                <StackPanel Orientation="Horizontal">
+                    <materialDesign:PackIcon Kind="ContentSave" Foreground="white" Width="18" FontWeight="ExtraLight" Height="23" HorizontalAlignment="Center" RenderTransformOrigin="-2.044,0.844" />
+                    <TextBlock Width="40" Height="19" FontSize="15"  Foreground="white" FontWeight="ExtraLight" TextAlignment="Center"  HorizontalAlignment="Center"><Run Text=" Save"/></TextBlock>
+                </StackPanel>
+            </Button>
+        </Grid>
+    </Grid>
+</Window>

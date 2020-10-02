@@ -1,0 +1,135 @@
+﻿<Window x:Class="POS.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+        xmlns:local="clr-namespace:POS"
+        mc:Ignorable="d"
+        WindowStartupLocation="CenterScreen"
+        AllowsTransparency="True"
+        WindowStyle="None"
+        ResizeMode="CanResizeWithGrip"
+        Title="MainWindow"  Height="750" Width="1200">
+
+    <Window.Triggers>
+        <EventTrigger RoutedEvent="Loaded">
+            <BeginStoryboard>
+                <Storyboard>
+                    <DoubleAnimation
+              Storyboard.TargetProperty="Opacity"
+               From="0.0" To="1.0" Duration="0:0:1"/>
+                </Storyboard>
+            </BeginStoryboard>
+        </EventTrigger>
+    </Window.Triggers>
+
+    <Border Grid.RowSpan="2" BorderThickness="1" BorderBrush="Black" >
+        <Grid >
+
+
+            <Grid.RowDefinitions>
+                <RowDefinition Height="60"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+
+
+
+            <Grid Name="header" Background="#006fb9" Grid.Row="0" VerticalAlignment="Stretch" HorizontalAlignment="Stretch">
+                <TextBlock Margin="10,6,716,6" FontWeight="Bold" FontSize="40" Foreground="White" FontFamily="Raleway" VerticalAlignment="Center"> Sales and Purchase</TextBlock>
+
+                <Button Name="exit" Grid.Column="0" BorderThickness="1" BorderBrush="Transparent" Background="Transparent"  ToolTip="Exit" VerticalAlignment="Stretch" HorizontalAlignment="Right" Height="Auto" Margin="0,6,10,14" Click="exit_Click" Width="56">
+                    <materialDesign:PackIcon Foreground="White" Kind="Close" VerticalAlignment="Stretch" HorizontalAlignment="Stretch"/>
+                </Button>
+                <Button Name="maximize" Grid.Column="0" BorderThickness="1" BorderBrush="Transparent" Background="Transparent"  ToolTip="Maximize" VerticalAlignment="Stretch" HorizontalAlignment="Right" Height="Auto" Margin="0,6,63,14" Click="maximize_Click" Width="56">
+                    <materialDesign:PackIcon Foreground="White" Kind="WindowMaximize" VerticalAlignment="Stretch" HorizontalAlignment="Stretch"/>
+                </Button>
+                <Button Name="minimize" Grid.Column="0" BorderThickness="1" BorderBrush="Transparent" Background="Transparent"  ToolTip="Minimize" VerticalAlignment="Stretch" HorizontalAlignment="Right" Height="Auto" Margin="0,6,116,14" Click="minimize_Click" Width="56">
+                    <materialDesign:PackIcon Foreground="White" Kind="WindowMinimize" VerticalAlignment="Stretch" HorizontalAlignment="Stretch"/>
+                </Button>
+            </Grid>
+
+            <Grid x:Name="GridMenu" Width="200" HorizontalAlignment="Left" Background="#31373b" Grid.Row="1" Grid.Column="0" >
+
+
+                <Grid.RowDefinitions>
+           
+                    <RowDefinition/>
+                </Grid.RowDefinitions>
+
+
+                <Border Grid.RowSpan="2" BorderThickness="1" Opacity="0.2" BorderBrush="#949494" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"/>
+
+                <StackPanel Grid.Row="1">
+
+                    <ListView x:Name="item_list" Foreground="white" Background="#282525"  >
+
+                        <ListView.ItemContainerStyle>
+                            <Style TargetType="ListViewItem"  >
+                                <Style.Triggers>
+                                    <Trigger Property="IsSelected" Value="True">
+                                        <Setter Property="Background" Value="DarkSlateGray" />
+                                    </Trigger>
+                                </Style.Triggers>
+                            </Style>
+                        </ListView.ItemContainerStyle>
+
+
+                        <ListViewItem x:Name="Dashboard"  Height="60" Selected="Dashboard_Selected" Cursor="Hand"  >
+                            <Grid  HorizontalAlignment="Stretch"  >
+                                <materialDesign:PackIcon Foreground="white" Kind="Home" Height="25" Width="35" Margin="10  "/>
+                                <TextBlock Text="Dashboard" Foreground="white" VerticalAlignment="Center" Margin="81,10,-29,17" />
+
+                            </Grid>
+                        </ListViewItem>
+
+
+                        <ListViewItem x:Name="Transaction"  Height="60" Selected="Transaction_Selected" Cursor="Hand"  >
+                            <Grid  HorizontalAlignment="Stretch"  >
+                                <materialDesign:PackIcon Foreground="white" Kind="AccountCash" Height="25" Width="35" Margin="10  "/>
+                                <TextBlock Foreground="white"  Text="Transaction" VerticalAlignment="Center" Margin="81,10,-29,17" />
+
+                            </Grid>
+                        </ListViewItem>
+
+
+
+                        <ListViewItem x:Name="Inventory"  Height="60" Selected="Inventory_Selected"  Cursor="Hand"  >
+                            <Grid  HorizontalAlignment="Stretch"  >
+                                <materialDesign:PackIcon Foreground="white" Kind="BoxVariant" Height="25" Width="35" Margin="10  "/>
+                                <TextBlock Foreground="white"  Text="Products" VerticalAlignment="Center" Margin="81,10,-29,17" />
+
+                            </Grid>
+                        </ListViewItem>
+
+                        <!--<ListViewItem x:Name="Customers"  Height="60" Selected="Customers_Selected"  Cursor="Hand"  >
+                            <Grid  HorizontalAlignment="Stretch"  >
+                                <materialDesign:PackIcon Foreground="DarkSlateGray" Kind="Person" Height="25" Width="35" Margin="10  "/>
+                                <TextBlock Foreground="DarkSlateGray"  Text="Customers" VerticalAlignment="Center" Margin="81,10,-29,17" />
+
+                            </Grid>
+                        </ListViewItem>-->
+
+
+                        <ListViewItem x:Name="Reports"  Height="60"  Cursor="Hand" Selected="Reports_Selected"  >
+                            <Grid  HorizontalAlignment="Stretch"  >
+                                <materialDesign:PackIcon Foreground="white" Kind="FileReport" Height="25" Width="35" Margin="10  "/>
+                                <TextBlock Foreground="white"  Text="Reports" VerticalAlignment="Center" Margin="81,10,-29,17" />
+
+                            </Grid>
+                        </ListViewItem>
+
+
+                    </ListView>
+                </StackPanel>
+            </Grid>
+
+
+
+            <Grid Name="stack" Grid.Row="1" Margin="200,0,0,0">
+
+            </Grid>
+
+        </Grid>
+    </Border>
+</Window>
