@@ -13,14 +13,16 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using System.Windows.Threading;
 
 namespace POS.Forms
 {
     /// <summary>
     /// Interaction logic for Customers.xaml
-    /// </summary>
+   
     public partial class Customers : Window
     {
+        DispatcherTimer _typingTimer;
         public Customers()
         {
             InitializeComponent();
@@ -154,9 +156,35 @@ namespace POS.Forms
 
         }
 
+     
+        private void handleTypingTimerTimeout(object sender, EventArgs e)
+        {
+            var timer = sender as DispatcherTimer;
+            if (timer == null)
+            {
+                return;
+            }
+
+            var isbn = timer.Tag.ToString();
+            search.Text = isbn;
+
+            search_customer();
+            timer.Stop();
+        }
         private void search_TextChanged(object sender, TextChangedEventArgs e)
         {
-            search_customer();
+            if (_typingTimer == null)
+            {
+
+                _typingTimer = new DispatcherTimer();
+                _typingTimer.Interval = TimeSpan.FromMilliseconds(600);
+
+                _typingTimer.Tick += new EventHandler(this.handleTypingTimerTimeout);
+            }
+            _typingTimer.Stop(); // Resets the timer
+            _typingTimer.Tag = (sender as TextBox).Text; // This should be done with EventArgs
+            _typingTimer.Start();
+
         }
         private void delete_customer(object sender, RoutedEventArgs e)
         {

@@ -139,7 +139,16 @@ namespace POS.Forms
 
                 while (reader.Read())
                 {
-                    txt_totalTransaction.Text = reader["transaction"].ToString();     
+                    try
+                    {
+                        txt_totalTransaction.Text = string.Format("{0:n}", ((double)reader["transaction"]));
+                    }
+                    catch
+                    (Exception ex)
+                    {
+                        txt_totalTransaction.Text = "0";
+                        return;
+                    }
                 }
                 connect.Close();
 
@@ -168,7 +177,17 @@ namespace POS.Forms
 
                 while (reader.Read())
                 {
-                    txt_totalCustomer.Text = string.Format("{0:n}", (double.Parse(reader["gross"].ToString()) - double.Parse(reader["capital"].ToString())));   
+                    try
+                    {
+                        txt_totalProfit.Text = string.Format("{0:n}", (double.Parse(reader["gross"].ToString()) - double.Parse(reader["capital"].ToString())));
+                    }
+                    catch
+                    (Exception ex)
+                    {
+                        txt_totalProfit.Text = "0";
+                        return;
+                    }
+         
                 }
                 connect.Close();
 

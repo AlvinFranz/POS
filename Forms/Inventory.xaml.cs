@@ -14,6 +14,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using System.Windows.Threading;
 
 namespace POS.Forms
 {
@@ -23,6 +24,7 @@ namespace POS.Forms
     public partial class Inventory : UserControl
     {
         //public static DataGrid 
+        System.Windows.Threading.DispatcherTimer _typingTimer;
         public Inventory()
         {
             InitializeComponent();
@@ -116,33 +118,42 @@ namespace POS.Forms
             detail.ShowDialog();
         }
 
-        private void search_TextChanged(object sender, TextChangedEventArgs e)
+        private void handleTypingTimerTimeout(object sender, EventArgs e)
         {
+            var timer = sender as DispatcherTimer; 
+            if (timer == null)
+            {
+                return;
+            }
+            
+            var isbn = timer.Tag.ToString();
+            search.Text = isbn;
+
             string query = "select " +
-                    "i.product_id as id," +
-                    "i.product_name as name," +
-                    "c.category_name as category," +
-                    "s.supplier_name as supplier," +
-                    "i.product_capital as capital," +
-                    "i.product_price as price," +
-                    "i.product_quantity as quantity," +
-                    "i.product_image as image " +
-                    "FROM " +
-                    "inventory i, " +
-                    "category c " +
-                    "INNER JOIN " +
-                    "supplier s " +
-                    "WHERE " +
-                    "i.category_id = c.category_id AND " +
-                    "i.supplier_id = s.supplier_id AND " +
-                    "(i.product_id LIKE @search OR " +
-                    "i.product_name LIKE @search OR " +
-                    "c.category_name LIKE @search OR  " +
-                    "s.supplier_name LIKE @search OR " +
-                    "i.product_capital LIKE @search OR " +
-                    "i.product_price LIKE @search OR " +
-                    "i.product_quantity LIKE @search) " +
-                    "order by c.category_name";
+            "i.product_id as id," +
+            "i.product_name as name," +
+            "c.category_name as category," +
+            "s.supplier_name as supplier," +
+            "i.product_capital as capital," +
+            "i.product_price as price," +
+            "i.product_quantity as quantity," +
+            "i.product_image as image " +
+            "FROM " +
+            "inventory i, " +
+            "category c " +
+            "INNER JOIN " +
+            "supplier s " +
+            "WHERE " +
+            "i.category_id = c.category_id AND " +
+            "i.supplier_id = s.supplier_id AND " +
+            "(i.product_id LIKE @search OR " +
+            "i.product_name LIKE @search OR " +
+            "c.category_name LIKE @search OR  " +
+            "s.supplier_name LIKE @search OR " +
+            "i.product_capital LIKE @search OR " +
+            "i.product_price LIKE @search OR " +
+            "i.product_quantity LIKE @search) " +
+            "order by c.category_name";
 
             String con = System.Configuration.ConfigurationManager.ConnectionStrings["connectionString"].ConnectionString;
             MySqlConnection connect = new MySqlConnection(con);
@@ -158,6 +169,22 @@ namespace POS.Forms
             tbl_inventory.ItemsSource = dTable.DefaultView;
 
             connect.Close();
+            timer.Stop();
+        }
+        private void search_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            if (_typingTimer == null)
+            {
+           
+                _typingTimer = new DispatcherTimer();
+                _typingTimer.Interval = TimeSpan.FromMilliseconds(400);
+
+                _typingTimer.Tick += new EventHandler(this.handleTypingTimerTimeout);
+            }
+            _typingTimer.Stop(); // Resets the timer
+            _typingTimer.Tag = (sender as TextBox).Text; // This should be done with EventArgs
+            _typingTimer.Start();
+
         }
         private void delete_product(object sender, RoutedEventArgs e)
         {

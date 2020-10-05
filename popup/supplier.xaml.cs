@@ -13,6 +13,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using System.Windows.Threading;
 
 namespace POS.popup
 {
@@ -21,6 +22,7 @@ namespace POS.popup
     /// </summary>
     public partial class supplier : Window
     {
+        DispatcherTimer _typingTimer;
         public supplier()
         {
             InitializeComponent();
@@ -144,9 +146,34 @@ namespace POS.popup
             clear_details();
         }
 
+        private void handleTypingTimerTimeout(object sender, EventArgs e)
+        {
+            var timer = sender as DispatcherTimer;
+            if (timer == null)
+            {
+                return;
+            }
+
+            var isbn = timer.Tag.ToString();
+            search.Text = isbn;
+
+            search_supplier();
+            timer.Stop();
+        }
         private void search_TextChanged(object sender, TextChangedEventArgs e)
         {
-            search_supplier();
+            if (_typingTimer == null)
+            {
+
+                _typingTimer = new DispatcherTimer();
+                _typingTimer.Interval = TimeSpan.FromMilliseconds(600);
+
+                _typingTimer.Tick += new EventHandler(this.handleTypingTimerTimeout);
+            }
+            _typingTimer.Stop(); // Resets the timer
+            _typingTimer.Tag = (sender as TextBox).Text; // This should be done with EventArgs
+            _typingTimer.Start();
+
         }
         private void delete_supplier(object sender, RoutedEventArgs e)
         {
