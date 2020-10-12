@@ -60,8 +60,8 @@
                     </DataTemplate>
                 </GroupBox.HeaderTemplate>
                 <Grid>
-                    <Label Margin="0,122,655,0" RenderTransformOrigin="0.508,1.1" HorizontalContentAlignment="Right" HorizontalAlignment="center" Width="107" Height="30" VerticalAlignment="Top">Product Code</Label>
-                    <TextBox Name="txt_code" Margin="112,108,321,0"   HorizontalContentAlignment="Center" Background="LightGray" BorderThickness="0 0 0 0" VerticalContentAlignment="Center" BorderBrush="DarkSlateGray" Width="329" HorizontalAlignment="center" Height="44" VerticalAlignment="Top" FontSize="25"></TextBox>
+                    <Label Margin="0,122,655,0" RenderTransformOrigin="0.508,1.1" HorizontalContentAlignment="Right" HorizontalAlignment="center" Width="107" Height="30" VerticalAlignment="Top" Visibility="Hidden">Product Code</Label>
+                    <TextBox Name="txt_code" Margin="112,108,321,0"   HorizontalContentAlignment="Center" Background="LightGray" BorderThickness="0 0 0 0" VerticalContentAlignment="Center" BorderBrush="DarkSlateGray" Width="329" HorizontalAlignment="center" Height="44" VerticalAlignment="Top" FontSize="25"  Visibility="Hidden"></TextBox>
 
                     <Label Margin="0,171,655,0" RenderTransformOrigin="0.508,1.1" HorizontalContentAlignment="Right" HorizontalAlignment="center" Width="107" Height="30" VerticalAlignment="Top">Description</Label>
                     <TextBox  Name="txt_description" Margin="112,157,321,0"   HorizontalContentAlignment="Center" Background="LightGray" BorderThickness="0 0 0 0"  VerticalContentAlignment="Center" BorderBrush="DarkSlateGray" Width="329" HorizontalAlignment="center" Height="44" VerticalAlignment="Top"  FontSize="25"></TextBox>
@@ -91,14 +91,14 @@
                         </ComboBox.ItemsPanel>
                     </ComboBox>
 
-                    <Label Margin="0,74,655,0"  RenderTransformOrigin="0.508,1.1" HorizontalContentAlignment="Right" HorizontalAlignment="center" Width="107" Height="24" VerticalAlignment="Top">Supplier</Label>
+                    <Label Margin="0,94,655,0"  RenderTransformOrigin="0.508,1.1" HorizontalContentAlignment="Right" HorizontalAlignment="center" Width="107" Height="24" VerticalAlignment="Top">Supplier</Label>
                     <ComboBox                      
                       HorizontalContentAlignment="Center"
                       VerticalContentAlignment="Top"
                       Name="cbox_supplier"
                       FontSize="15"
                       ItemsSource="{Binding LongListToTestComboVirtualization}"
-                      Style="{StaticResource MaterialDesignFloatingHintComboBox}" Margin="112,54,0,0" HorizontalAlignment="Left" Width="329" VerticalAlignment="Top" Height="44">
+                      Style="{StaticResource MaterialDesignFloatingHintComboBox}" Margin="112,74,0,0" HorizontalAlignment="Left" Width="329" VerticalAlignment="Top" Height="44">
                         <ComboBox.ItemsPanel>
                             <ItemsPanelTemplate>
                                 <VirtualizingStackPanel />

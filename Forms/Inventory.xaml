@@ -139,7 +139,7 @@
                 <DataGridTextColumn Header="Product Code" Binding="{Binding id}" Width="*" />
                 <DataGridTextColumn Header="Supplier" Binding="{Binding supplier}" Width="*" />
                 <DataGridTextColumn Header="Price" Binding="{Binding price, StringFormat=C}"  Width="*" />
-                <DataGridTextColumn Header="Capital" Binding="{Binding capital}"  Width="*" />
+                <DataGridTextColumn Header="Capital" Binding="{Binding capital,StringFormat=C}"  Width="*" />
                 <DataGridTextColumn Header="Quantity" Binding="{Binding quantity}"  Width="*" />
                 <DataGridTemplateColumn Header="Action" Width="250">
                     <DataGridTemplateColumn.CellTemplate>

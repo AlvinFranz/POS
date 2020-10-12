@@ -73,7 +73,7 @@ namespace POS.popup
                 while (reader.Read())
                 {
                     capital = double.Parse(reader["product_capital"].ToString());
-                    txt_prodID.Text = ((string)reader["product_id"]);
+                    txt_prodID.Text = ((int)reader["product_id"]).ToString();
                     txt_desc.Text =((string)reader["product_name"]);
                     txt_category.Text = ((string)reader["category_name"]);
                     txt_stocks.Text = ((int)reader["product_quantity"]).ToString();
