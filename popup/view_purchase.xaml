@@ -46,7 +46,7 @@
 
     <Grid Background="LightGray">
         <Grid Name="header" Background="#525252" Grid.Row="0" VerticalAlignment="Top" HorizontalAlignment="Stretch" Height="54">
-            <TextBlock Margin="10,9,0,9" FontWeight="Bold" FontSize="30" Foreground="White" FontFamily="Raleway" VerticalAlignment="Center" HorizontalAlignment="Left" Width="294"> Payment</TextBlock>
+            <TextBlock Margin="10,9,0,9" FontWeight="Bold" FontSize="30" Foreground="White" FontFamily="Raleway" VerticalAlignment="Center" HorizontalAlignment="Left" Width="294"> Record Details</TextBlock>
             <Button Name="exit" Grid.Column="0" BorderThickness="1" BorderBrush="Transparent" Background="Transparent"  ToolTip="Exit" VerticalAlignment="Stretch" HorizontalAlignment="Right" Height="Auto" Margin="0,6,10,14" Width="56">
                 <materialDesign:PackIcon Foreground="White" Kind="Close" VerticalAlignment="Stretch" HorizontalAlignment="Stretch"/>
             </Button>
@@ -157,14 +157,25 @@
         </GroupBox>
 
 
-        <Button  BorderBrush="Transparent" BorderThickness="1" 
+        <Button Name="btn_print"  BorderBrush="Transparent" BorderThickness="1" 
                                     HorizontalAlignment="Center" VerticalAlignment="Bottom" Width="128"   Style="{StaticResource MaterialDesignRaisedAccentButton}"
                                     materialDesign:RippleAssist.Feedback="#DD000000"
-                                    Background="#006fb9" Height="50" FontSize="13" Foreground="black" Margin="620,0,10,7">
+                                    Background="#006fb9" Height="50" FontSize="13" Foreground="black" Margin="620,0,10,7" Visibility="Hidden">
 
             <StackPanel Orientation="Vertical">
                 <materialDesign:PackIcon Kind="printer" Foreground="white" Width="54" FontWeight="ExtraLight" Height="23" HorizontalAlignment="Center" RenderTransformOrigin="-2.044,0.844" />
                 <TextBlock Width="99" Height="19" FontSize="15"  Foreground="white" FontWeight="ExtraLight" TextAlignment="Center"  HorizontalAlignment="Center"><Run Text=" Print"/></TextBlock>
+            </StackPanel>
+        </Button>
+
+        <Button  Name="btn_delete"  BorderBrush="Transparent" BorderThickness="1" 
+                                    HorizontalAlignment="Center" VerticalAlignment="Bottom" Width="128"   Style="{StaticResource MaterialDesignRaisedAccentButton}"
+                                    materialDesign:RippleAssist.Feedback="#DD000000"
+                                    Background="#006fb9" Height="50" FontSize="13" Foreground="black" Margin="620,0,10,7" Visibility="Hidden">
+
+            <StackPanel Orientation="Vertical">
+                <materialDesign:PackIcon Kind="TrashCan" Foreground="white" Width="54" FontWeight="ExtraLight" Height="23" HorizontalAlignment="Center" RenderTransformOrigin="-2.044,0.844" />
+                <TextBlock Width="99" Height="19" FontSize="15"  Foreground="white" FontWeight="ExtraLight" TextAlignment="Center"  HorizontalAlignment="Center"><Run Text=" Delete"/></TextBlock>
             </StackPanel>
         </Button>
 

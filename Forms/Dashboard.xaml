@@ -159,6 +159,31 @@
                     <DataGridTextColumn Header="Customer" Binding="{Binding customer_name}"  Width="*" />
                     <DataGridTextColumn Header="Date Purchased" Binding="{Binding date_purchased}" Width="*" />
                     <DataGridTextColumn Header="Total" Binding="{Binding total, StringFormat=C}"  Width="*" />
+                    <DataGridTemplateColumn Width="100">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="*" />
+                                        <ColumnDefinition Width="*" />
+                                    </Grid.ColumnDefinitions>
+
+                                    <Button Grid.Column="0" ToolTip="View" 
+                                                VerticalAlignment="top"
+                                                BorderThickness="0"
+                                                HorizontalAlignment="Center" 
+                                                HorizontalContentAlignment="Center"
+                                                Background="Transparent" Height="37" FontSize="13" Click="btn_view">
+                                        <StackPanel Orientation="Horizontal">
+                                            <materialDesign:PackIcon Kind="Information" Foreground="#006fb9" HorizontalAlignment="Stretch" FontWeight="ExtraLight" Height="23" RenderTransformOrigin="-2.044,0.844" />
+                                            <!--<TextBlock HorizontalAlignment="Stretch" Height="19" FontSize="12" Foreground="ForestGreen" FontWeight="ExtraLight" ><Run Text="View"/></TextBlock>-->
+                                        </StackPanel>
+                                    </Button>
+
+                                </Grid>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
                 </DataGrid.Columns>
             </DataGrid>
 

@@ -141,7 +141,7 @@ namespace POS.Forms
                 {
                     try
                     {
-                        txt_totalTransaction.Text = string.Format("{0:n}", ((double)reader["transaction"]));
+                        txt_totalTransaction.Text = reader["transaction"].ToString();
                     }
                     catch
                     (Exception ex)
@@ -164,7 +164,7 @@ namespace POS.Forms
         {
             try
             {
-                string query = "select sum(ss.total) as gross, sum(s.capital*s.quantity) as capital from sales s, sales_summary ss";
+                string query = "select sum(ss.total) as gross, sum(s.capital*s.quantity) as capital from sales s, sales_summary ss where ss.invoice_num = s.invoice_num";
                 string con = System.Configuration.ConfigurationManager.ConnectionStrings["connectionString"].ConnectionString;
                 MySqlConnection connect = new MySqlConnection(con);
                 connect.Open();
@@ -270,5 +270,14 @@ namespace POS.Forms
                 return;
             }
         }
+        private void btn_view(object sender, RoutedEventArgs e)
+        {
+            Forms.Reports forms = new Forms.Reports();
+            DataRowView dataRowView = (DataRowView)((Button)e.Source).DataContext;
+            String invoice = dataRowView["invoice_num"].ToString();
+            popup.view_purchase view = new popup.view_purchase(forms, invoice,1);
+            view.ShowDialog();
+        }
+
     }
 }

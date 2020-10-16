@@ -27,19 +27,18 @@ namespace POS.Forms
         {
             InitializeComponent();
 
-            sort_date(DateTime.Now.ToString("MM-yyyy"));
+            sort_date(DateTime.Now.ToString("MMMM-yyyy"));
 
         }
 
 
         public void sort_date(string date)
         {
-   
             lbl_header.Content = date + " Monthly Report";
 
             //converted to get 1st day of variable date
             DateTime convert_date = DateTime.Parse(date);
-
+     
             show_sales(convert_date);
             count_sales(convert_date);
             count_gross(convert_date);
@@ -466,6 +465,7 @@ namespace POS.Forms
 
         private void count_profit(DateTime date)
         {
+            double ave_profit = 0;
             double count_sales = 0;
             double count_prev_sales = 0;
             double difference = 0;
@@ -498,7 +498,8 @@ namespace POS.Forms
                     " sum(capital*quantity) as capital_now, " +
                     " (select sum(total) from sales_summary where date_purchased Between @date2 AND @date1) as gross_now," +
                     " (select sum(capital*quantity) from sales where date_purchased Between @date4 AND @date3) as capital_prev," +
-                    " (select sum(total) from sales_summary where date_purchased Between @date4 AND @date3) as gross_prev " +
+                    " (select sum(total) from sales_summary where date_purchased Between @date4 AND @date3) as gross_prev," +
+                    " sum(quantity) as qty " +
                     " FROM " +
                     " sales " +
                     " where date_purchased BETWEEN @date2 AND @date1";
@@ -523,8 +524,8 @@ namespace POS.Forms
 
                     try
                     {
-                        count_sales = Double.Parse(reader["gross_now"].ToString()) - Double.Parse(reader["capital_now"].ToString());
-
+                        count_sales = Double.Parse(reader["gross_now"].ToString()) - Double.Parse(reader["capital_now"].ToString())   ;
+                        ave_profit = count_sales / Double.Parse(reader["qty"].ToString());
                     }
                     catch (Exception ex)
                     {
@@ -542,7 +543,7 @@ namespace POS.Forms
                 }
                 connect.Close();
 
-                lbl_profit.Content = "\u20B1" + string.Format("{0:n}", count_sales);
+                lbl_profit.Content = "\u20B1" + string.Format("{0:n}", count_sales) + " (" + string.Format("{0:n}", ave_profit) + ") "  ;
                 difference = count_sales - count_prev_sales;
 
 
@@ -1006,7 +1007,15 @@ namespace POS.Forms
         {
             DataRowView dataRowView = (DataRowView)((Button)e.Source).DataContext;
             String invoice = dataRowView["invoice_num"].ToString();
-            popup.view_purchase view = new popup.view_purchase(invoice);
+            popup.view_purchase view = new popup.view_purchase(this,invoice,1);
+            view.ShowDialog();
+        }
+
+        private void btn_delete(object sender, RoutedEventArgs e)
+        {
+            DataRowView dataRowView = (DataRowView)((Button)e.Source).DataContext;
+            String invoice = dataRowView["invoice_num"].ToString();
+            popup.view_purchase view = new popup.view_purchase(this,invoice,0);
             view.ShowDialog();
         }
 

@@ -99,7 +99,7 @@
                         <DataGridTextColumn Header="Customer Type" Binding="{Binding customer_type}" Width="*" />
                         <DataGridTextColumn Header="Date Purchased" Binding="{Binding date_purchased}" Width="*" />
                         <DataGridTextColumn Header="Total" Binding="{Binding total, StringFormat=C}"  Width="*" />
-                        <DataGridTemplateColumn Width="150">
+                        <DataGridTemplateColumn Width="200">
                             <DataGridTemplateColumn.CellTemplate>
                                 <DataTemplate>
                                     <Grid>
@@ -116,6 +116,18 @@
                                                 Background="Transparent" Height="37" FontSize="13" Click="btn_view">
                                             <StackPanel Orientation="Horizontal">
                                                 <materialDesign:PackIcon Kind="Information" Foreground="#006fb9" HorizontalAlignment="Stretch" FontWeight="ExtraLight" Height="23" RenderTransformOrigin="-2.044,0.844" />
+                                                <!--<TextBlock HorizontalAlignment="Stretch" Height="19" FontSize="12" Foreground="ForestGreen" FontWeight="ExtraLight" ><Run Text="View"/></TextBlock>-->
+                                            </StackPanel>
+                                        </Button>
+
+                                        <Button Grid.Column="1" ToolTip="Delete" 
+                                                VerticalAlignment="top"
+                                                BorderThickness="0"
+                                                HorizontalAlignment="Stretch" 
+                                                Width="100"
+                                                Background="Transparent" Height="37" FontSize="13" Click="btn_delete">
+                                            <StackPanel Orientation="Horizontal">
+                                                <materialDesign:PackIcon Kind="TrashCan" Foreground="#006fb9" HorizontalAlignment="Stretch" FontWeight="ExtraLight" Height="23" RenderTransformOrigin="-2.044,0.844" />
                                                 <!--<TextBlock HorizontalAlignment="Stretch" Height="19" FontSize="12" Foreground="ForestGreen" FontWeight="ExtraLight" ><Run Text="View"/></TextBlock>-->
                                             </StackPanel>
                                         </Button>
@@ -206,7 +218,7 @@
                 </Border.Effect>
             </Border>
             <Label Margin="20,0,0,0" FontSize="20"  Foreground="Black" HorizontalAlignment="Left" Width="213" Height="36" VerticalAlignment="Top">Profit</Label>
-            <Label Name="lbl_profit" Margin="23,36,0,0" FontSize="20"  FontWeight="Bold" Foreground="SeaGreen" HorizontalAlignment="Left" Width="196" Height="36" VerticalAlignment="Top">P40,201.25</Label>
+            <Label Name="lbl_profit" Margin="23,36,0,0" FontSize="17"  FontWeight="Bold" Foreground="SeaGreen" HorizontalAlignment="Left" Width="196" Height="36" VerticalAlignment="Top">P40,201.25</Label>
             <Label Name="lbl_profit_percent" Margin="23,66,0,0" FontSize="20"  FontWeight="ExtraLight"  Foreground="SeaGreen" HorizontalAlignment="Stretch" Height="36" VerticalAlignment="Top" >+4,020.12 (+10%)</Label>
         </Grid>
 

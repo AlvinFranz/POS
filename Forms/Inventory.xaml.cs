@@ -32,7 +32,6 @@ namespace POS.Forms
         }
         public void show_inventory()
         {
-
             try
             {
                 string query = "select " +

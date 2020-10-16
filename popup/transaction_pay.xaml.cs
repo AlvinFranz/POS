@@ -51,7 +51,7 @@ namespace POS.popup
         {
             lbl_invoice.Content = transaction.transaction_number.ToString();
             txt_total.Text = string.Format("{0:n}", transaction.txt_total.Content);
-            lbl_date.Content = DateTime.Now.ToString("yyyy-MM-dd");
+          
 
         }
 

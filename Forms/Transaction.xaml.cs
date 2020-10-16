@@ -26,8 +26,7 @@ namespace POS.Forms
     {
         DispatcherTimer _typingTimer;
         public string prod_id = "";
-      
-
+    
         private popup.add_order order;
         public Transaction()
         {
@@ -137,8 +136,10 @@ namespace POS.Forms
 
             string query = "select * from inventory " +
                                  "WHERE " +
-                                 "product_name LIKE @search " +
-                                 "OR product_price LIKE @search ";
+                                 "product_quantity != 0 " +
+                                 "AND  (product_name LIKE @search " +
+                                 "OR product_price LIKE @search) ";
+
 
             String con = System.Configuration.ConfigurationManager.ConnectionStrings["connectionString"].ConnectionString;
             MySqlConnection connect = new MySqlConnection(con);
