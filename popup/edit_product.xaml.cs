@@ -193,6 +193,7 @@ namespace POS.popup
                          "supplier_id = (select supplier_id from supplier where supplier_name = @supplier_name), " +
                          "product_capital = @product_capital, " +
                          "product_price = @product_price, " +
+                         "date_registered = @dateNow, " +
                          "product_quantity = @product_quantity "  +
                          " where product_id = @product_id";
             }
@@ -205,6 +206,7 @@ namespace POS.popup
                          "product_capital = @product_capital, " +
                          "product_price = @product_price, " +
                          "product_quantity = @product_quantity," +
+                         "date_registered = @dateNow, " +
                          "product_image = @product_image " +
                          " where product_id = @product_id";
             }
@@ -246,6 +248,7 @@ namespace POS.popup
                     cmd.Parameters.AddWithValue("@product_capital", txt_capital.Text);
                     cmd.Parameters.AddWithValue("@product_price", txt_price.Text);
                     cmd.Parameters.AddWithValue("@product_quantity", txt_quantity.Text);
+                    cmd.Parameters.AddWithValue("@@dateNow", DateTime.Now.ToString("yyyy-MM-dd"));
                     cmd.Parameters.AddWithValue("@product_image", ImageData);
         
                     cmd.ExecuteNonQuery();

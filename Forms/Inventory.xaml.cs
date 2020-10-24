@@ -42,6 +42,7 @@ namespace POS.Forms
                     "i.product_capital as capital," +
                     "i.product_price as price," +
                     "i.product_quantity as quantity," +
+                    "i.date_registered as date_registered," +
                     "i.product_image as image " +
                     "FROM " +
                     "inventory i, " +
@@ -136,6 +137,7 @@ namespace POS.Forms
             "i.product_capital as capital," +
             "i.product_price as price," +
             "i.product_quantity as quantity," +
+            "i.date_registered as date_registered," +
             "i.product_image as image " +
             "FROM " +
             "inventory i, " +
@@ -227,6 +229,11 @@ namespace POS.Forms
             String prod_id = dataRowView["id"].ToString();
             popup.edit_product edit_product = new popup.edit_product(this,prod_id);
             edit_product.ShowDialog();
+        }
+
+        private void tbl_inventory_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+
         }
     }
 }

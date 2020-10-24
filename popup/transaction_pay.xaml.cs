@@ -101,7 +101,7 @@ namespace POS.popup
         private void Button_Click(object sender, RoutedEventArgs e)
         {
        
-            if (txt_name.Text.Equals("")) { MessageBox.Show("Please enter customer name", "Error", MessageBoxButton.OK, MessageBoxImage.Error);  return; }
+            if (txt_name.Text.Equals("") || date_purchased.Text.Equals("")) { MessageBox.Show("Fill-up missing fields", "Error", MessageBoxButton.OK, MessageBoxImage.Error);  return; }
 
             MessageBoxResult messageBoxResult = System.Windows.MessageBox.Show("Confirm Purchase?", "Payment", System.Windows.MessageBoxButton.YesNo);
             if (messageBoxResult == MessageBoxResult.Yes)
@@ -134,7 +134,7 @@ namespace POS.popup
                         cmd.Parameters.AddWithValue("@capital", p.capital);
                         cmd.Parameters.AddWithValue("@total", double.Parse(txt_total.Text.ToString()));
                         cmd.Parameters.AddWithValue("@invoice_num", lbl_invoice.Content);
-                        cmd.Parameters.AddWithValue("@date", dateNow);
+                        cmd.Parameters.AddWithValue("@date", DateTime.Parse(date_purchased.Text).ToString("yyyy-MM-dd"));
                         cmd.Parameters.AddWithValue("@customer_name", txt_name.Text);
                         cmd.Parameters.AddWithValue("@customer_address", txt_address.Text);
                         cmd.Parameters.AddWithValue("@customer_contact", txt_contact.Text);

@@ -115,7 +115,7 @@
         <DataGrid  x:Name="tbl_inventory" ItemsSource="{Binding Path=LoadDataBinding}" IsReadOnly="True" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"  HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Auto"
                       AutoGenerateColumns="False" xmlns:s="clr-namespace:System;assembly=mscorlib" 
                       ColumnWidth="*" CanUserAddRows="false" Background="white" Foreground="black" RowHeight="60"
-                       HorizontalGridLinesBrush="DarkSlateGray"  GridLinesVisibility="Horizontal" Grid.Row="2" Margin="10"    >
+                       HorizontalGridLinesBrush="DarkSlateGray"  GridLinesVisibility="Horizontal" Grid.Row="2" Margin="10" SelectionChanged="tbl_inventory_SelectionChanged"    >
             <DataGrid.Resources>
                 <Style BasedOn="{StaticResource {x:Type DataGridColumnHeader}}" TargetType="{x:Type DataGridColumnHeader}">
                     <Setter Property="FontWeight" Value="Regular" />
@@ -141,6 +141,7 @@
                 <DataGridTextColumn Header="Price" Binding="{Binding price, StringFormat=C}"  Width="*" />
                 <DataGridTextColumn Header="Capital" Binding="{Binding capital,StringFormat=C}"  Width="*" />
                 <DataGridTextColumn Header="Quantity" Binding="{Binding quantity}"  Width="*" />
+                <DataGridTextColumn Header="Registered" Binding="{Binding date_registered}"  Width="*" />
                 <DataGridTemplateColumn Header="Action" Width="250">
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
